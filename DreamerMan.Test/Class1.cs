@@ -10,7 +10,7 @@ namespace DreamerMan.Test
         public void Test_Example(){
             int expected = 10;
 
-            Assert.Equal(expected, 4+6);
+            Assert.Equal(expected, 5+5);
         }
     }
 }
