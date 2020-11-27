@@ -1,0 +1,19 @@
+name: "Dotnet project workflow"
+on: 
+  -
+    push
+jobs:
+  build-step:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: "Getting Project From Repository"
+        uses: actions/checkout@v2
+      - 
+        name: "Project Roots"
+        run: pwd
+      - 
+        name: "List Of Folders"
+        run: ls -la
+
+
