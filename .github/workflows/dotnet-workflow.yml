@@ -26,6 +26,9 @@ jobs:
       -
         name: "Project Restoring"
         run: dotnet restore
+      -
+        name: "Project Testing"
+        run: dotnet test -v q
 
 
 
