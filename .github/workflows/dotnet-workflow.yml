@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: fatihmert/dreamer-man:${{needs.build.outputs.tag}}
+          tags: fatihmert/dreamer-man:${GITHUB_REF#refs/tags/}
 
 
 
