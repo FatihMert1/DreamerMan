@@ -4,7 +4,6 @@ on:
     push
 jobs:
   build-step:
-    - id: build
       runs-on: ubuntu-latest
       outputs:
         tag: ${{steps.tagging.outputs.VERSION}}
