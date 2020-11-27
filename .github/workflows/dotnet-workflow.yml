@@ -15,5 +15,12 @@ jobs:
       - 
         name: "List Of Folders"
         run: ls -la
+      - 
+        name: "Project building"
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+        run: dotnet build .\DreamerMan.sln
+        
 
 
