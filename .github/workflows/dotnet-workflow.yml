@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '3.1.x'
       -
         name: "Project Building"
-        run: dotnet build .\DreamerMan.sln
+        run: dotnet build
 
 
 
