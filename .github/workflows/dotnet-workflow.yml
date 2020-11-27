@@ -37,7 +37,7 @@ jobs:
           run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
   deploy-to-docker-hub-step:
     needs: [build-step]
-    if: startsWith(github.ref,ref/tags/)
+    if: startsWith(github.ref,'ref/tags/')
     runs-on: ubuntu-latest
     steps:
       -
