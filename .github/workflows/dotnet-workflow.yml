@@ -23,6 +23,9 @@ jobs:
       -
         name: "Project Building"
         run: dotnet build
+      -
+        name: "Project Restoring"
+        run: dotnet restore
 
 
 
