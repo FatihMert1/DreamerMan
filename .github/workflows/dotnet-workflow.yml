@@ -4,10 +4,10 @@ on:
     push
 jobs:
   build-step:
+    id: build
     runs-on: ubuntu-latest
-    id: build_step
     outputs:
-      tag: ${{steps.tagging.outputs.TAG}}
+      tag: ${{steps.tagging.outputs.VERSION}}
     steps:
       -
         name: "Getting Project From Repository"
@@ -35,7 +35,7 @@ jobs:
       -
         name: "Tagging Project"
         id: tagging
-        run: echo ::set-output name=TAG::${{GITHUB_REF#refs/tags/}}
+        run: echo ::set-output name=VERSION::${{GITHUB_REF#refs/tags/}}
   deploy-to-docker-hub-step:
     needs: [build-step]
     if: startsWith(github.ref,ref/tags/)
@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: fatihmert/dreamer-man:${{needs.build-step.outputs.tag}}
+          tags: fatihmert/dreamer-man:${{needs.build.outputs.tag}}
 
 
 
