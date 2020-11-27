@@ -4,7 +4,7 @@ on:
     push
 jobs:
   build-step:
-    id: build
+    - id: build
     runs-on: ubuntu-latest
     outputs:
       tag: ${{steps.tagging.outputs.VERSION}}
@@ -34,7 +34,8 @@ jobs:
         run: dotnet test -v q
       -
         name: "Tagging Project"
-        id: tagging
+        - 
+          id: tagging
         run: echo ::set-output name=VERSION::${{GITHUB_REF#refs/tags/}}
   deploy-to-docker-hub-step:
     needs: [build-step]
