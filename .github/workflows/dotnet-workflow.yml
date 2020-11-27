@@ -34,7 +34,7 @@ jobs:
         -
           name: "Tagging Project"
           id: tagging
-          run: echo ::set-output name=VERSION::${{GITHUB_REF#refs/tags/}}
+          run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
   deploy-to-docker-hub-step:
     needs: [build-step]
     if: startsWith(github.ref,ref/tags/)
