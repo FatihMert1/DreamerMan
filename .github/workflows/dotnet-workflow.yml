@@ -5,38 +5,38 @@ on:
 jobs:
   build-step:
     - id: build
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{steps.tagging.outputs.VERSION}}
-    steps:
-      -
-        name: "Getting Project From Repository"
-        uses: actions/checkout@v2
-      - 
-        name: "Project Roots"
-        run: pwd
-      - 
-        name: "List Of Folders"
-        run: ls -la
-      - 
-        name: "Setup Dotnet"
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '3.1.x'
-      -
-        name: "Project Building"
-        run: dotnet build
-      -
-        name: "Project Restoring"
-        run: dotnet restore
-      -
-        name: "Project Testing"
-        run: dotnet test -v q
-      -
-        name: "Tagging Project"
+      runs-on: ubuntu-latest
+      outputs:
+        tag: ${{steps.tagging.outputs.VERSION}}
+      steps:
+        -
+          name: "Getting Project From Repository"
+          uses: actions/checkout@v2
         - 
-          id: tagging
-        run: echo ::set-output name=VERSION::${{GITHUB_REF#refs/tags/}}
+          name: "Project Roots"
+          run: pwd
+        - 
+          name: "List Of Folders"
+          run: ls -la
+        - 
+          name: "Setup Dotnet"
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: '3.1.x'
+        -
+          name: "Project Building"
+          run: dotnet build
+        -
+          name: "Project Restoring"
+          run: dotnet restore
+        -
+          name: "Project Testing"
+          run: dotnet test -v q
+        -
+          name: "Tagging Project"
+          - 
+            id: tagging
+          run: echo ::set-output name=VERSION::${{GITHUB_REF#refs/tags/}}
   deploy-to-docker-hub-step:
     needs: [build-step]
     if: startsWith(github.ref,ref/tags/)
