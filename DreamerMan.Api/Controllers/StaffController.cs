@@ -10,6 +10,11 @@ namespace DreamerMan.Api.Controllers
         public string GetStuff(){
             return "I am table";
         }
+
+        [HttpGet("new")]
+        public string GetNew(){
+            return "I am new stuff";
+        }
         
     }
 }
