@@ -8,4 +8,4 @@ WORKDIR /app
 COPY --from=build-env /app/Output .
 ENV ASPNETCORE_URLS http://*:5000
 EXPOSE 5000
-ENTRYPOINT [ "dotnet","DreamerMan.dll" ]
+ENTRYPOINT [ "dotnet",".\Output\DreamerMan.Api.dll" ]
