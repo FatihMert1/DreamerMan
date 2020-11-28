@@ -3,10 +3,10 @@ on:
   -
     push
 jobs:
-  build-step:
+  build:
       runs-on: ubuntu-latest
       outputs:
-        tag: ${{steps.tagging.outputs.VERSION}}
+        version: ${{steps.tagging.outputs.VERSION}}
       steps:
         -
           name: "Getting Project From Repository"
@@ -32,12 +32,12 @@ jobs:
           name: "Project Testing"
           run: dotnet test -v q
         -
-          name: "Tagging Project"
+          name: "Tag Project If There IS A Tag Of Project"
           id: tagging
           run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
         -
           run: echo ${GITHUB_REF#refs/tags/}
-  deploy-to-docker-hub-step:
+  deploy-to-docker-hub:
     needs: [build-step]
     if: startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
@@ -59,9 +59,29 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: fatihmert/dreamer-man:${{needs.build-step.outputs.tag}}
-
-
+          tags: fatihmert/dreamer-man:${{needs.build-step.outputs.version}}
+  start-server:
+    needs: [deploy-to-docker-hub]
+    runs-on: [self-hosted]
+    steps:
+      - 
+        name: "Setup QEMU"
+        uses: docker/setup-qemu-action@v1
+      -
+        name: "Setup Docker Buildx"
+        uses: docker/setup-buildx-action@v1
+      -
+        name: "Login To DockerHub"
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_USER_NAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+      -
+        name: "Pull Docker Image"
+        run: docker pull fatihmert/dreamer-man
+      -
+        name: "Container Start"
+        run: docker container run -d -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:latest
 
 
 
