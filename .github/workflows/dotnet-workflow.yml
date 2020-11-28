@@ -71,8 +71,11 @@ jobs:
         name: "Pull Docker Image"
         run: sudo docker pull fatihmert/dreamer-man:${{needs.build.outputs.version}}
       -
+        name: "Stop Running Container"
+        run: sudo docker container stop dreamer-man-api
+      -
         name: "Container Start"
-        run: sudo docker container run -d -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:${{needs.build.outputs.version}}
+        run: sudo docker container run -d --rm -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:${{needs.build.outputs.version}}
 
 
 
