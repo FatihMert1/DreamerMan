@@ -74,4 +74,4 @@ jobs:
         run: sudo docker ps -q --filter "name=dreamer-man-api" | grep -q . && sudo docker stop dreamer-man-api || echo Not Found Container [dreamer-man-api]
       -
         name: "Container Start"
-        run: sudo docker container run -d --rm -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:${{needs.build.outputs.version}}
+        run: sudo docker container run -d --rm -p 80:80 --name "dramer-man-api" fatihmert/dreamer-man:${{needs.build.outputs.version}}
