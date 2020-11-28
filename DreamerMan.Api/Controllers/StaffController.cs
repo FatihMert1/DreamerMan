@@ -16,5 +16,10 @@ namespace DreamerMan.Api.Controllers
             return "I am new stuff";
         }
         
+        [HttpGet("won")]
+        public string GetWon(){
+            return "I WON";
+        }
+        
     }
 }
