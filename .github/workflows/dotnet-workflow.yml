@@ -66,13 +66,13 @@ jobs:
     steps:
       -
         name: "Login To DockerHub"
-        run: sudo docker login -u ${{secrets.DOCKER_USER_NAME}} --password ${{secrets.DOCKER_PASSWORD}}
+        run: sudo docker login -u ${{secrets.DOCKER_USER_NAME}} -p ${{secrets.DOCKER_PASSWORD}}
       -
         name: "Pull Docker Image"
-        run: docker pull fatihmert/dreamer-man
+        run: sudo docker pull fatihmert/dreamer-man
       -
         name: "Container Start"
-        run: docker container run -d -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:latest
+        run: sudo docker container run -d -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:latest
 
 
 
