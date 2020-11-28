@@ -35,8 +35,7 @@ jobs:
           name: "Tag Project If There IS A Tag Of Project"
           id: tagging
           run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-        -
-          run: echo ${GITHUB_REF#refs/tags/}
+
   deploy-to-docker-hub:
     needs: [build]
     if: startsWith(github.ref, 'refs/tags')
@@ -72,10 +71,7 @@ jobs:
         run: sudo docker pull fatihmert/dreamer-man:${{needs.build.outputs.version}}
       -
         name: "Stop Running Container"
-        run: sudo docker container stop dreamer-man-api
+        run: sudo docker ps -q --filter "name=dreamer-man-api" | grep -q . && sudo docker stop dreamer-man-api | echo Not Found Container [dreamer-man-api]
       -
         name: "Container Start"
         run: sudo docker container run -d --rm -p 5000:5000 --name "dramer-man-api" fatihmert/dreamer-man:${{needs.build.outputs.version}}
-
-
-
